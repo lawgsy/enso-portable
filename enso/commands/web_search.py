@@ -501,3 +501,10 @@ def cmd_what_is_my_ip(ensoapi):
 
     ip = re.search("Address: ([^<]+)", thread.getRetval()).group(1)
     ensoapi.display_message("Your IP is %s" % ip)
+
+
+def cmd_qrcode(ensoapi, txt=None):
+    """Generate a QR Code."""
+    base_url = "https://api.qrserver.com/v1/create-qr-code/"
+    ws = WebSearchCmd(base_url + "?size=200x200&data=%(query)s")
+    ws(ensoapi, txt)
