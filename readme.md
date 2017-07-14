@@ -10,7 +10,11 @@ Clone the repository. If using your own Python distribution rather than the one 
 
 # Running instructions
 
-Compile 'run-enso.exe' or, if you are so inclined, run 'debug.bat'
+Run `debug.bat` (should be located in `enso/`), or compile `run-enso.exe` using the Visual Studio solution in `launcher/`.
+
+Both require python (2.7) to be installed in a subdirectory `enso/python/` (this is to make the entire thing portable, without relying on Python begin installed).
+
+Already have Python 2.7 as default python? `debug-globalpython.bat` instead (or modify the file to match your global installation).
 
 # Known bugs
 
