@@ -1,0 +1,22 @@
+[TYPECHECK]
+
+#ignored-modules = enso, win32api, win32con, win32gui, winerror
+
+[MESSAGES CONTROL]
+# Enable the message, report, category or checker with the given id(s). You can
+# either give multiple identifier separated by comma (,) or put this option
+# multiple time.
+#enable=
+
+# Disable the message, report, category or checker with the given id(s). You
+# can either give multiple identifier separated by comma (,) or put this option
+# multiple time (only on the command line, not in the configuration file where
+# it should appear only once).
+
+disable = R0902, R0912, R0913, R0914, R0915
+
+# R0902: Too many instance attributes
+# R0912: Too many branches
+# R0913: Too many arguments
+# R0914: Too many local variables
+# R0915: Too many statements

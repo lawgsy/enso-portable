@@ -5,7 +5,7 @@ from urllib import urlencode
 import re
 
 re_language_detect = re.compile(r'.*"(.*)".*$')
-re_translation = re.compile(r'[^\[]text = (.*?)"')
+re_translation = re.compile(r'"([^"]*)"')
 
 
 hdr = {
@@ -13,7 +13,7 @@ hdr = {
                    '(KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36')
 }
 
-supported_languages = [
+supporte_languages = [
     "af", "ach", "ak", "am", "ar", "az", "be", "bem", "bg", "bh", "bn",
     "br", "bs", "ca", "chr", "ckb", "co", "crs", "cs", "cy", "da", "de", "ee",
     "el", "en", "eo", "es", "es-419", "et", "eu", "fa", "fi", "fo", "fr", "fy",
@@ -28,6 +28,11 @@ supported_languages = [
     "tum", "tw", "ug", "uk", "ur", "uz", "vi", "wo", "xh", "yi", "yo", "zh-CN",
     "zh-TW", "zu"
 ]
+
+
+def remove_prefix(text, prefix):
+    """Remove prefix from start of text, if present and return result."""
+    return text[text.startswith(prefix) and len(prefix):]
 
 
 def detect_language(inputlist):
@@ -81,7 +86,7 @@ def cmd_translate(ensoapi, source_target_text=None):
 
     inputlist = source_target_text.split(' ')
     sl = inputlist.pop(0)
-    if sl not in supported_languages:
+    if sl not in supporte_languages:
         inputlist = [sl]+inputlist
 
         sl = detect_language(inputlist)
@@ -89,6 +94,10 @@ def cmd_translate(ensoapi, source_target_text=None):
 
         translation = trans(sl, tl, inputlist)
         translation = unicode(translation, "utf-8")
+        translation = translation.replace("\\n", "")
+        translation = translation.replace("\\r", "")
+        translation = remove_prefix(translation, "Text = ")
+
         ensoapi.display_message(translation)
     else:
         tl = inputlist.pop(0)
@@ -99,4 +108,7 @@ def cmd_translate(ensoapi, source_target_text=None):
 
         translation = trans(sl, tl, inputlist)
         translation = unicode(translation, "utf-8")
+        translation = translation.replace("\\n", "")
+        translation = translation.replace("\\r", "")
+        translation = remove_prefix(translation, "Text = ")
         ensoapi.display_message(translation)

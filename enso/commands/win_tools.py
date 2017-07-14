@@ -1,45 +1,59 @@
-'''
-A simple OO wrapper around the win32 Python modules
+"""
+A simple OO wrapper around the win32 Python modules.
 
 By: Scott O. Nelson (aka "SirGnip")
 
 February 2007 - March 2008
 
 References:
-Using win32 Python module to automate window's tasks (basically, can send any event to any control in windows)
+Using win32 Python module to automate window's tasks (basically, can send any
+event to any control in windows)
 http://www.brunningonline.net/simon/blog/archives/000652.html
 
 The gmane.comp.python.windows mailing list history is a good reference:
 http://thread.gmane.org/gmane.comp.python.windows/
 This mailing list is also called python-win32
-'''
+"""
 
 import win32gui
 import win32api
 import win32con
-import win32process
+# import win32process
 import win32clipboard
-import time
-import string
+# import time
+# import string
 import ctypes
-import re
-import os
+# import re
+# import os
 import logging
 
-import ctypes
-from ctypes import *
-from ctypes.wintypes import HWND #, RECT, POINT
+# import ctypes
+# from ctypes import *
+from ctypes import c_wchar_p, c_int, c_long, c_ulong
+from ctypes import WinDLL, GetLastError, WinError, create_unicode_buffer
+from ctypes.wintypes import HWND  # , RECT, POINT
+
+
+# from enso.commands import CommandManager,
+from enso.commands import CommandObject
+# from enso.commands.factories import ArbitraryPostfixFactory
+# from enso import selection
+# from enso.messages import displayMessage
+# from enso.contrib.scriptotron import ensoapi
+# from SendKeys import SendKeys as sendkeys
 
 
 def _stdcall(dllname, restype, funcname, *argtypes):
-    # a decorator for a generator.
-    # The decorator loads the specified dll, retrieves the
-    # function with the specified name, set its restype and argtypes,
-    # it then invokes the generator which must yield twice: the first
-    # time it should yield the argument tuple to be passed to the dll
-    # function (and the yield returns the result of the call).
-    # It should then yield the result to be returned from the
-    # function call.
+    """
+    A decorator for a generator.
+
+    The decorator loads the specified dll, retrieves the function with the
+    specified name, set its restype and argtypes, it then invokes the generator
+    which must yield twice: the first time it should yield the argument tuple to
+    be passed to the dll function (and the yield returns the result of the
+    call).
+    It should then yield the result to be returned from the function call.
+    """
     def decorate(func):
         api = getattr(WinDLL(dllname), funcname)
         api.restype = restype
@@ -60,8 +74,12 @@ def _stdcall(dllname, restype, funcname, *argtypes):
 
 
 def nonzero(result):
-    # If the result is zero, and GetLastError() returns a non-zero
-    # error code, raise a WindowsError
+    """
+    Raise error if zero.
+
+    If the result is zero, and GetLastError() returns a non-zero error code,
+    raise a WindowsError
+    """
     if result == 0 and GetLastError():
         raise WinError()
     return result
@@ -69,26 +87,30 @@ def nonzero(result):
 
 @_stdcall("user32", c_int, "GetWindowTextLengthW", HWND)
 def GetWindowTextLength(hwnd):
+    """Return window title length."""
     yield nonzero((yield hwnd,))
 
 
 @_stdcall("user32", c_int, "GetWindowTextW", HWND, c_wchar_p, c_int)
 def GetWindowText(hwnd):
+    """Return window title."""
     len = GetWindowTextLength(hwnd)+1
     buf = create_unicode_buffer(len)
     nonzero((yield hwnd, buf, len))
     yield buf.value
 
+
 # Standalone functions
 def GetTextFromClipboard():
-    '''get text from clipboard'''
+    """Return text from clipboard."""
     win32clipboard.OpenClipboard()
     text = win32clipboard.GetClipboardData()
     win32clipboard.CloseClipboard()
     return(text)
 
+
 def SetTextOnClipboard(text):
-    '''write to clipboard'''
+    """Write text to clipboard."""
     win32clipboard.OpenClipboard()
     win32clipboard.EmptyClipboard()
     win32clipboard.SetClipboardText(text)
@@ -96,17 +118,17 @@ def SetTextOnClipboard(text):
 
 
 def is_app_window(win):
-    # Determine if the window is application window
+    """Determine if the window is an application window."""
     if not win32gui.IsWindow(win):
         return False
-    # Invisible windows are of no interest
-    if not win32gui.IsWindowVisible(win):
+
+    # Invisible or disabled windows are of no interest
+    if not win32gui.IsWindowVisible(win) or not win32gui.IsWindowEnabled(win):
         return False
-    # Also disabled windows we do not want
-    if not win32gui.IsWindowEnabled(win):
-        return False
+
     exstyle = win32gui.GetWindowLong(win, win32con.GWL_EXSTYLE)
-    # AppWindow flag would be good at this point
+
+    # AppWindow flag should be good at this point
     if exstyle & win32con.WS_EX_APPWINDOW != win32con.WS_EX_APPWINDOW:
         style = win32gui.GetWindowLong(win, win32con.GWL_STYLE)
         # Child window is suspicious
@@ -114,7 +136,8 @@ def is_app_window(win):
             return False
         parent = win32gui.GetParent(win)
         owner = win32gui.GetWindow(win, win32con.GW_OWNER)
-        # Also window which has parent or owner is probably not an application window
+        # Also window which has parent or owner is probably not an application
+        # window
         if parent > 0 or owner > 0:
             return False
         # Tool windows we also avoid
@@ -123,20 +146,24 @@ def is_app_window(win):
             return False
     # There are some specific windows we do not want to switch to
     win_class = win32gui.GetClassName(win)
-    if "WindowsScreensaverClass" == win_class or "tooltips_class32" == win_class:
+    screensaver_check = "WindowsScreensaverClass" == win_class
+    if screensaver_check or "tooltips_class32" == win_class:
         return False
     # Now we probably have application window
     return True
 
 
 def is_maximized_window(win):
+    """Check if window is maximized."""
     placement = win32gui.GetWindowPlacement(win)
-    maximized = placement[1] == win32con.SW_MAXIMIZE
+    maximized = placement[1] == win32con.SW_MAXIMIZE  # NOQA
 
 
 class cRect(object):
-    '''
-    Patterened from the Rect class in Pygame.  see http://www.pygame.org/docs/ref/rect.html
+    """
+    Patterened from the Rect class in Pygame.
+
+    See http://www.pygame.org/docs/ref/rect.html
 
     >>> r = cRect(1, 3, 10, 20)
     >>> r.size
@@ -186,49 +213,55 @@ class cRect(object):
 
     >>> r.midright == p.midright
     True
-    '''
+    """
+
     def __init__(self, l, t, w, h):
+        """Initialization method."""
         self.left = l
         self.top = t
         self.width = w
         self.height = h
 
     def __str__(self):
-        return '<cRect %d, %d, %d, %d>' % (self.left, self.top, self.width, self.height)
+        """Printable representation."""
+        temp_rect = (self.left, self.top, self.width, self.height)
+        return '<cRect %d, %d, %d, %d>' % temp_rect
 
     def __getattr__(self, name):
-        '''Called if an attribute can not be found through the normal methods.'''
+        """Called if an attribute can not be found through normal methods."""
         if name == 'right':
             return self.left + self.width
-        if name == 'bottom':
+        elif name == 'bottom':
             return self.top + self.height
-        if name == 'topleft':
+        elif name == 'topleft':
             return(self.left, self.top)
-        if name == 'bottomleft':
+        elif name == 'bottomleft':
             return(self.left, self.bottom)
-        if name == 'topright':
+        elif name == 'topright':
             return(self.right, self.top)
-        if name == 'bottomright':
+        elif name == 'bottomright':
             return(self.right, self.bottom)
-        if name == 'midtop':
+        elif name == 'midtop':
             return(self.centerx, self.top)
-        if name == 'midleft':
+        elif name == 'midleft':
             return(self.left, self.centery)
-        if name == 'midbottom':
+        elif name == 'midbottom':
             return(self.centerx, self.bottom)
-        if name == 'midright':
+        elif name == 'midright':
             return(self.right, self.centery)
-        if name == 'size':
+        elif name == 'size':
             return(self.width, self.height)
-        if name == 'centerx':
+        elif name == 'centerx':
             return self.left + (self.width / 2)
-        if name == 'centery':
+        elif name == 'centery':
             return self.top + (self.height / 2)
-        if name == 'center':
+        elif name == 'center':
             return(self.centerx, self.centery)
 
     def __setattr__(self, name, value):
-        '''Called every time an attribute is attempted to be set.  Be careful of recursion...'''
+        """Called every time an attribute is attempted to be set.
+
+        Be careful of recursion..."""
         if name == 'right':
             self.left = value - self.width
         elif name == 'bottom':
@@ -330,9 +363,9 @@ class cWindow:
         the window if it is minimized'''
         win32gui.BringWindowToTop(self._hwnd)
 
-## I think this is no longer supported?
-##  def BringToFront(self):
-##      win32gui.BringWindowToFront(self._hwnd)
+    # I think this is no longer supported?
+    #  def BringToFront(self):
+    #      win32gui.BringWindowToFront(self._hwnd)
 
     def SetAsForegroundWindow(self):
         win32gui.SetForegroundWindow(self._hwnd)
@@ -448,10 +481,12 @@ class cDesktop:
 
     def GetWorkArea(self):
         class RECT(ctypes.Structure):
-            _fields_ = [('left',ctypes.c_ulong),
-                ('top',ctypes.c_ulong),
-                ('right',ctypes.c_ulong),
-                ('bottom',ctypes.c_ulong)]
+            _fields_ = [
+                ('left', c_ulong),
+                ('top', c_ulong),
+                ('right', c_ulong),
+                ('bottom', c_ulong)
+            ]
         r = RECT()
         ctypes.windll.user32.SystemParametersInfoA(win32con.SPI_GETWORKAREA, 0, ctypes.byref(r), 0)
         logging.debug(map(int, (r.left, r.top, r.right, r.bottom)))
@@ -473,7 +508,7 @@ By: Scott O. Nelson (aka "SirGnip")
 '''
 
 class WindowsTaskbar:
-    
+
     ABM_GETSTATE = 4
     ABM_SETSTATE = 10
 
@@ -483,19 +518,19 @@ class WindowsTaskbar:
     class APPBARDATA(ctypes.Structure):
         class RECT(ctypes.Structure):
             _fields_ = [
-                ("left", ctypes.c_long),
-                ("top", ctypes.c_long),
-                ("right", ctypes.c_long),
-                ("bottom", ctypes.c_long)
-            ]        
+                ("left", c_long),
+                ("top", c_long),
+                ("right", c_long),
+                ("bottom", c_long)
+            ]
 
         _fields_ = [
-            ("cbSize", ctypes.c_long),
-            ("hwnd", ctypes.c_long),
-            ("uCallbackMessage", ctypes.c_long),
-            ("uEdge", ctypes.c_long),
+            ("cbSize", c_long),
+            ("hwnd", c_long),
+            ("uCallbackMessage", c_long),
+            ("uEdge", c_long),
             ("rc", RECT),
-            ("lParam", ctypes.c_long)
+            ("lParam", c_long)
         ]
 
 
@@ -529,13 +564,6 @@ class WindowsTaskbar:
     def undo_set_autohide(self):
         self.set_autohide(self.is_autohide_flag)
 
-
-from enso.commands import CommandManager, CommandObject
-from enso.commands.factories import ArbitraryPostfixFactory
-from enso import selection
-from enso.messages import displayMessage
-from enso.contrib.scriptotron import ensoapi
-from SendKeys import SendKeys as sendkeys
 
 #import win32Wrap
 
@@ -697,13 +725,13 @@ def cmd_unmaximize(ensoapi):
     """ Unmaximize window if it is maximized """
     cmd_restore(ensoapi)
 
-    
+
 def cmd_close(ensoapi):
     """ Close the window currently in the foreground """
     win = DESK.GetForegroundWindow()
     win.Close()
 
-    
+
 class MinimizeAllWindows(CommandObject):
     '''Minimize all visible windows'''
 

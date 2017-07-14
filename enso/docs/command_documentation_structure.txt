@@ -1,0 +1,18 @@
+## Example:
+
+def cmd_calculate(ensoapi, expression = None):
+    """
+    Calculate the given mathematical expression.
+
+    <i>Calculates the given mathematical expression.</i><br /><br />
+    <b>Supported operators:</b> -, +, /, *, ^, **, (, ), %, mod<br />
+    <b>Supported functions:</b> mod, acos, asin, atan, atan2, ceil, cos, cosh,
+                         degrees, exp, fabs, floor, fmod, frexp, hypot, ldexp,
+                         log, log10, modf, pow, radians, sin, sinh, sqrt, tan,
+                         tanh<br />
+    <b>Supported constants:</b> pi, e
+    """
+
+http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html
+
+http://dolphm.com/pep257-good-python-docstrings-by-example/

@@ -1,0 +1,321 @@
+https://sites.google.com/site/tomihasa/google-language-codes
+
+Index
+Google Web Interface and Search Language Codes
+
+
+
+Introduction
+
+This article contains a list of the Google web interface language
+codes (hl=) and the search language codes (lr=) that can be inserted
+to the URL (web address) in the address bar of the web browser when
+using a Google service in case you are having problems with your
+language settings with Google. At the moment (June 2012) there
+are 149 web interface language codes and 46 search language codes. The
+language codes have been collected from the HTML source of the Google
+Preferences page, so you can find them from there also. This page
+is intended mainly to list the language codes, so you can copy the
+characters (for example hl=en or lr=lang_en) to the URL you are using,
+but you may also get directly to your preferred language interface
+page or search language page by clicking the appropriate link on one
+of the two below lists.
+
+Keep in mind that not all the Google services have been translated to
+all the languages listed below. Also, adding the language codes after
+any URL will not work, so you may need to do some experimenting to
+find out where you can add them.
+
+Usage Examples
+
+For example, if you are using the Google Web Search page and the URL
+in the address bar of your web browser is:
+
+   http://www.google.com/search?
+
+you can define the web interface language to be English by adding
+hl=en to the end of the URL and after the change the URL will look
+like this:
+
+   http://www.google.com/search?hl=en
+
+When you use more than one setting code in the URL, you need to use
+the & character between them. For example, if you also want to define
+the search language to be English you need to use the & character
+between the codes like this:
+
+   http://www.google.com/search?hl=en&lr=lang_en
+
+Because the above URL probably won't work so that the selected search
+language will be used if you try do a search on that page, you also
+need to add a search query (q=) to the URL, so the resulting URL will
+be:
+
+   http://www.google.com/search?hl=en&lr=lang_en&q=example
+
+Remember to press Enter (or equivalent key) on your keyboard after
+adding the needed characters.
+
+Web Interface Language Codes
+
+hl=af          Afrikaans
+hl=ak          Akan
+hl=sq          Albanian
+hl=am          Amharic
+hl=ar          Arabic
+hl=hy          Armenian
+hl=az          Azerbaijani
+hl=eu          Basque
+hl=be          Belarusian
+hl=bem         Bemba
+hl=bn          Bengali
+hl=bh          Bihari
+hl=xx-bork     Bork, bork, bork!
+hl=bs          Bosnian
+hl=br          Breton
+hl=bg          Bulgarian
+hl=km          Cambodian
+hl=ca          Catalan
+hl=chr         Cherokee
+hl=ny          Chichewa
+hl=zh-CN       Chinese (Simplified)
+hl=zh-TW       Chinese (Traditional)
+hl=co          Corsican
+hl=hr          Croatian
+hl=cs          Czech
+hl=da          Danish
+hl=nl          Dutch
+hl=xx-elmer    Elmer Fudd
+hl=en          English
+hl=eo          Esperanto
+hl=et          Estonian
+hl=ee          Ewe
+hl=fo          Faroese
+hl=tl          Filipino
+hl=fi          Finnish
+hl=fr          French
+hl=fy          Frisian
+hl=gaa         Ga
+hl=gl          Galician
+hl=ka          Georgian
+hl=de          German
+hl=el          Greek
+hl=gn          Guarani
+hl=gu          Gujarati
+hl=xx-hacker   Hacker
+hl=ht          Haitian Creole
+hl=ha          Hausa
+hl=haw         Hawaiian
+hl=iw          Hebrew
+hl=hi          Hindi
+hl=hu          Hungarian
+hl=is          Icelandic
+hl=ig          Igbo
+hl=id          Indonesian
+hl=ia          Interlingua
+hl=ga          Irish
+hl=it          Italian
+hl=ja          Japanese
+hl=jw          Javanese
+hl=kn          Kannada
+hl=kk          Kazakh
+hl=rw          Kinyarwanda
+hl=rn          Kirundi
+hl=xx-klingon  Klingon
+hl=kg          Kongo
+hl=ko          Korean
+hl=kri         Krio (Sierra Leone)
+hl=ku          Kurdish
+hl=ckb         Kurdish (Soranî)
+hl=ky          Kyrgyz
+hl=lo          Laothian
+hl=la          Latin
+hl=lv          Latvian
+hl=ln          Lingala
+hl=lt          Lithuanian
+hl=loz         Lozi
+hl=lg          Luganda
+hl=ach         Luo
+hl=mk          Macedonian
+hl=mg          Malagasy
+hl=ms          Malay
+hl=ml          Malayalam
+hl=mt          Maltese
+hl=mi          Maori
+hl=mr          Marathi
+hl=mfe         Mauritian Creole
+hl=mo          Moldavian
+hl=mn          Mongolian
+hl=sr-ME       Montenegrin
+hl=ne          Nepali
+hl=pcm         Nigerian Pidgin
+hl=nso         Northern Sotho
+hl=no          Norwegian
+hl=nn          Norwegian (Nynorsk)
+hl=oc          Occitan
+hl=or          Oriya
+hl=om          Oromo
+hl=ps          Pashto
+hl=fa          Persian
+hl=xx-pirate   Pirate
+hl=pl          Polish
+hl=pt-BR       Portuguese (Brazil)
+hl=pt-PT       Portuguese (Portugal)
+hl=pa          Punjabi
+hl=qu          Quechua
+hl=ro          Romanian
+hl=rm          Romansh
+hl=nyn         Runyakitara
+hl=ru          Russian
+hl=gd          Scots Gaelic
+hl=sr          Serbian
+hl=sh          Serbo-Croatian
+hl=st          Sesotho
+hl=tn          Setswana
+hl=crs         Seychellois Creole
+hl=sn          Shona
+hl=sd          Sindhi
+hl=si          Sinhalese
+hl=sk          Slovak
+hl=sl          Slovenian
+hl=so          Somali
+hl=es          Spanish
+hl=es-419      Spanish (Latin American)
+hl=su          Sundanese
+hl=sw          Swahili
+hl=sv          Swedish
+hl=tg          Tajik
+hl=ta          Tamil
+hl=tt          Tatar
+hl=te          Telugu
+hl=th          Thai
+hl=ti          Tigrinya
+hl=to          Tonga
+hl=lua         Tshiluba
+hl=tum         Tumbuka
+hl=tr          Turkish
+hl=tk          Turkmen
+hl=tw          Twi
+hl=ug          Uighur
+hl=uk          Ukrainian
+hl=ur          Urdu
+hl=uz          Uzbek
+hl=vi          Vietnamese
+hl=cy          Welsh
+hl=wo          Wolof
+hl=xh          Xhosa
+hl=yi          Yiddish
+hl=yo          Yoruba
+hl=zu          Zulu
+
+
+
+Search Language Codes
+
+lr=lang_af    Afrikaans
+lr=lang_ar    Arabic
+lr=lang_hy    Armenian
+lr=lang_be    Belarusian
+lr=lang_bg    Bulgarian
+lr=lang_ca    Catalan
+lr=lang_zh-CN Chinese (Simplified)
+lr=lang_zh-TW Chinese (Traditional)
+lr=lang_hr    Croatian
+lr=lang_cs    Czech
+lr=lang_da    Danish
+lr=lang_nl    Dutch
+lr=lang_en    English
+lr=lang_eo    Esperanto
+lr=lang_et    Estonian
+lr=lang_tl    Filipino
+lr=lang_fi    Finnish
+lr=lang_fr    French
+lr=lang_de    German
+lr=lang_el    Greek
+lr=lang_iw    Hebrew
+lr=lang_hi    Hindi
+lr=lang_hu    Hungarian
+lr=lang_is    Icelandic
+lr=lang_id    Indonesian
+lr=lang_it    Italian
+lr=lang_ja    Japanese
+lr=lang_ko    Korean
+lr=lang_lv    Latvian
+lr=lang_lt    Lithuanian
+lr=lang_no    Norwegian
+lr=lang_fa    Persian
+lr=lang_pl    Polish
+lr=lang_pt    Portuguese
+lr=lang_ro    Romanian
+lr=lang_ru    Russian
+lr=lang_sr    Serbian
+lr=lang_sk    Slovak
+lr=lang_sl    Slovenian
+lr=lang_es    Spanish
+lr=lang_sw    Swahili
+lr=lang_sv    Swedish
+lr=lang_th    Thai
+lr=lang_tr    Turkish
+lr=lang_uk    Ukrainian
+lr=lang_vi    Vietnamese
+
+
+Short Textual List of Only the Language Codes
+
+af, ach, ak, am, ar, az, be, bem, bg, bh, bn, br, bs, ca, chr, ckb,
+co, crs, cs, cy, da, de, ee, el, en, eo, es, es-419, et, eu, fa, fi,
+fo, fr, fy, ga, gaa, gd, gl, gn, gu, ha, haw, hi, hr, ht, hu, hy, ia,
+id, ig, is, it, iw, ja, jw, ka, kg, kk, km, kn, ko, kri, ku, ky, la,
+lg, ln, lo, loz, lt, lua, lv, mfe, mg, mi, mk, ml, mn, mo, mr, ms, mt,
+ne, nl, nn, no, nso, ny, nyn, oc, om, or, pa, pcm, pl, ps, pt-BR,
+pt-PT, qu, rm, rn, ro, ru, rw, sd, sh, si, sk, sl, sn, so, sq, sr,
+sr-ME, st, su, sv, sw, ta, te, tg, th, ti, tk, tl, tn, to, tr, tt,
+tum, tw, ug, uk, ur, uz, vi, wo, xh, xx-bork, xx-elmer, xx-hacker,
+xx-klingon, xx-pirate, yi, yo, zh-CN, zh-TW, zu.
+
+
+Links
+
+Related Pages
+
+Google Translate
+Google Transliteration
+Google in Your Language
+Google Translator Toolkit
+Google Translate Blog
+
+
+News
+
+Google search now supports Cherokee (March 2011)
+Listen to us now! (December 2010)
+On-screen Keyboards on Google Translate (December 2010)
+Google Launches Cantonese Voice Search in Hong Kong (December 2010)
+Transliteration goes global (December 2009)
+51 Languages in Google Translate (August 2009)
+
+
+----------------------------------------------------------------------
+
+
+
+Copyright (C) 2007—2012: Tomi Häsä (tomi.hasa@gmail.com).
+
+
+Disclaimer: This article is provided as is without any express or
+implied warranties. While every effort has been taken to ensure the
+accuracy of the information contained in this article, the
+contributor assumes no responsibility for errors or omissions, or for
+damages resulting from the use of the information contained herein.
+
+
+Last modified: June 11th, 2012
+Author: Tomi Häsä (tomi.hasa@gmail.com)
+
+URL: http://sites.google.com/site/tomihasa/google-language-codes
+
+ Suomi 	English
+
+List of changes.
+
+Inloggen|Misbruik melden|Pagina afdrukken|Mogelijk gemaakt door Google Sites
