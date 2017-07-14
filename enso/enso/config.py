@@ -1,6 +1,9 @@
-# Configuration settings for Enso.  Eventually this will take
-# localization into account too (or we can make a separate module for
-# such strings).
+"""
+Configuration settings for Enso.
+
+Eventually this will take localization into account too (or we can make a
+separate module for such strings).
+"""
 
 # The keys to start, exit, and cancel the quasimode.
 # Their values are strings referring to the names of constants defined
@@ -30,8 +33,8 @@ QUASIMODE_MIN_AUTOCOMPLETE_CHARS = 1
 BAD_COMMAND_MSG = "<p><command>%s</command> is not a command.</p>"\
                   "%s"
 
-# Minimum number of characters that should have been typed into the 
-# quasimode for a bad command message to be shown. 
+# Minimum number of characters that should have been typed into the
+# quasimode for a bad command message to be shown.
 BAD_COMMAND_MSG_MIN_CHARS = 2
 
 # The captions for the above message, indicating commands that are related
@@ -41,7 +44,7 @@ ONE_SUGG_CAPTION = "<caption>Did you mean <command>%s</command>?</caption>"
 # The string that is displayed in the quasimode window when the user
 # first enters the quasimode.
 QUASIMODE_DEFAULT_HELP = u"Welcome to Enso! Enter a command, " \
-    u"or type \u201chelp\u201d for assistance."
+                         u"or type \u201chelp\u201d for assistance."
 
 # The string displayed when the user has typed some characters but there
 # is no matching command.
@@ -53,8 +56,8 @@ OPENING_MSG_XML = "<p><command>Enso</command> is loaded!</p>"
 
 # Message XML displayed when the mouse hovers over a mini message.
 MINI_MSG_HELP_XML = "<p>The <command>hide mini messages</command>" \
-    " and <command>put</command> commands control" \
-    " these mini-messages.</p>"
+                    " and <command>put</command> commands control" \
+                    " these mini-messages.</p>"
 
 # List of default platforms supported by Enso; platforms are specific
 # types of providers that provide a suite of platform-specific
@@ -80,12 +83,20 @@ PLUGINS = ["enso.contrib.scriptotron",
 # If set to False, no locale is forced.
 PLUGIN_GOOGLE_USE_DEFAULT_LOCALE = True
 
-ABOUT_BOX_XML = u"<p><command>Enso</command> Community Edition</p>" \
-    "<caption>Enso Portable (Community Enso rev 145)</caption>" \
-    "<caption> </caption>" \
-    "<p>Copyright &#169; 2008 <command>Humanized, Inc.</command></p>" \
-    "<p>Copyright &#169; 2008-2009 <command>Enso Community</command></p>" \
-    "<p>Copyright &#169; 2011-2012 <command>g/christensen (gchristnsn@gmail.com)</command></p>" \
-
-
-# vim:set tabstop=4 shiftwidth=4 expandtab:
+ABOUT_BOX_XML = """
+<p><command>Enso</command> Community Edition</p>
+<caption>Enso Portable (Community Enso rev 145)</caption>
+<caption> </caption>
+<p>Copyright &#169; 2008
+    <command>Humanized, Inc.</command>
+</p>
+<p>Copyright &#169; 2008-2009
+    <command>Enso Community</command>
+</p>
+<p>Copyright &#169; 2011-2012
+    <command>g/christensen (gchristnsn@gmail.com)</command>
+</p>
+<p>Copyright &#169; 2017
+    <command>lawgsy (lawgsy@gmail.com)</command>
+</p>
+"""
