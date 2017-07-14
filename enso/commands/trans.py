@@ -13,7 +13,7 @@ hdr = {
                    '(KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36')
 }
 
-supporte_languages = [
+supported_languages = [
     "af", "ach", "ak", "am", "ar", "az", "be", "bem", "bg", "bh", "bn",
     "br", "bs", "ca", "chr", "ckb", "co", "crs", "cs", "cy", "da", "de", "ee",
     "el", "en", "eo", "es", "es-419", "et", "eu", "fa", "fi", "fo", "fr", "fy",
@@ -81,7 +81,7 @@ def cmd_translate(ensoapi, source_target_text=None):
 
     inputlist = source_target_text.split(' ')
     sl = inputlist.pop(0)
-    if sl not in supporte_languages:
+    if sl not in supported_languages:
         inputlist = [sl]+inputlist
 
         sl = detect_language(inputlist)
