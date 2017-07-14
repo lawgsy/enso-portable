@@ -68,17 +68,11 @@ def cmd_translate(ensoapi, source_target_text=None):
     See https://sites.google.com/site/tomihasa/google-language-codes<br />
     NOTE: Unicode not currently supported (i.e. Chinese characters, etc.)
     """
-    seldict = ensoapi.get_selection()
-    selected_text = None
-    if seldict.get("text"):
-        selected_text = seldict.get("text", "").strip().strip("\0")
+    if not source_target_text:
+        source_target_text = ensoapi.get_selection().get("text", "")
+    source_target_text.strip().strip("\0")
 
-    # got_selection = False
-    if selected_text and source_target_text is None:
-        source_target_text = selected_text
-        # got_selection = source_target_text is not None
-
-    if source_target_text is None:
+    if not source_target_text:
         ensoapi.display_message("No text to translate.")
         return
 
@@ -97,13 +91,15 @@ def cmd_translate(ensoapi, source_target_text=None):
         translation = translation.replace("\\n", "")
         translation = translation.replace("\\r", "")
         translation = remove_prefix(translation, "Text = ")
+        translation = remove_prefix(translation, "text =")
 
-        ensoapi.display_message(translation)
+        ensoapi.display_message(translation, "Translation (%s->%s)" % (sl, tl))
     else:
         tl = inputlist.pop(0)
 
         if sl == tl:
-            ensoapi.display_message("No translation: languages are the same")
+            ensoapi.display_message("No translation",
+                                    "The languages are the same")
             return
 
         translation = trans(sl, tl, inputlist)
@@ -111,4 +107,5 @@ def cmd_translate(ensoapi, source_target_text=None):
         translation = translation.replace("\\n", "")
         translation = translation.replace("\\r", "")
         translation = remove_prefix(translation, "Text = ")
-        ensoapi.display_message(translation)
+        translation = remove_prefix(translation, "text =")
+        ensoapi.display_message(translation, "Translation (%s->%s)" % (sl, tl))
